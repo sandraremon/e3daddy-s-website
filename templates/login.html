@@ -1,0 +1,14 @@
+<form method="POST" action="{{ url_for('login') }}">
+  <label for="email">Email:</label>
+  <input type="email" name="email" required />
+
+  <label for="password">Password:</label>
+  <input type="password" name="password" required />
+
+  {% if error %}
+  <p style="color: red">{{ error }}</p>
+  <!-- Error appears in red below inputs -->
+  {% endif %}
+
+  <button type="submit">Login</button>
+</form>

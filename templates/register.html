@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registration Form</h1>
+        <form id="registration-form" method="POST" action="/register">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <div class="error-message" id="name-error"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="grade">Grade:</label>
+            <select id="grade" name="grade" required>
+                <option value="First Prep">First Prep</option>
+                <option value="Second Prep">Second Prep</option>
+                <option value="Third Prep">Third Prep</option>
+            </select>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="profile_picture">Profile Picture URL (optional):</label>
+            <input type="text" id="profile_picture" name="profile_picture">
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <script>
+        // Validate name (no numbers or special characters)
+        const nameInput = document.getElementById("name");
+        const nameError = document.getElementById("name-error");
+
+        nameInput.addEventListener("input", () => {
+            const name = nameInput.value;
+            if (!/^[A-Za-z\s]+$/.test(name)) {
+                nameError.textContent = "Name must contain only letters and spaces.";
+            } else {
+                nameError.textContent = "";
+            }
+        });
+
+        // Prevent form submission if name is invalid
+        const form = document.getElementById("registration-form");
+        form.addEventListener("submit", (event) => {
+            const name = nameInput.value;
+            if (!/^[A-Za-z\s]+$/.test(name)) {
+                event.preventDefault();
+                nameError.textContent = "Name must contain only letters and spaces.";
+            }
+        });
+    </script>
+</body>
+</html>

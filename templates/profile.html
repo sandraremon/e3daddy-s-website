@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .profile-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .logout-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Welcome, {{ user.name }}!</h1>
+        <img src="{{ user.profile_picture }}" alt="Profile Picture" class="profile-picture">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Age:</strong> {{ user.age }}</p>
+        <p><strong>Grade:</strong> {{ user.grade }}</p>
+        <p><em>If you change the way you look at things, the things you look at change.</em></p>
+        <button class="logout-button" onclick="logout()">Logout</button>
+        <a href="/">Return to Registration</a>
+    </div>
+
+    <script>
+        function logout() {
+            fetch("/logout", {
+                method: "POST",
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();  // Parse the JSON response
+                } else {
+                    throw new Error("Logout failed");
+                }
+            })
+            .then(data => {
+                console.log(data.message);  // Log the success message
+                window.location.href = "/";  // Redirect to the registration page
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Logout failed. Please try again.");
+            });
+        }
+    </script>
+</body>
+</html>
