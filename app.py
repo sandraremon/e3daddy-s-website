@@ -110,5 +110,14 @@ def logout():
     session.pop("user", None)
     return jsonify({"message": "Logged out successfully"}), 200
 
+@app.route("/")
+def home():
+    return render_template("Home.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
